@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 import reportWebVitals from "./reportWebVitals.ts";
 import Homepage from "./pages/Homepage.tsx";
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
     <React.StrictMode>
+        <Toaster />
         <RouterProvider router={router} />
     </React.StrictMode>
 );
