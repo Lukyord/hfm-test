@@ -41,7 +41,10 @@ export default function Homepage() {
 
                 {/* HERO */}
                 <main className="homepage">
-                    <section data-section="homepage-hero">
+                    <section
+                        data-section="homepage-hero"
+                        className="header-margin"
+                    >
                         <div className="sc-inner">
                             <div className="container">
                                 <ContactForm />
@@ -58,13 +61,22 @@ export default function Homepage() {
                                 </div>
 
                                 {faq.map((item) => (
-                                    <Accordion key={item.title} title={item.title}>
-                                        <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                                    <Accordion
+                                        key={item.title}
+                                        title={item.title}
+                                    >
+                                        <div
+                                            dangerouslySetInnerHTML={{
+                                                __html: item.content,
+                                            }}
+                                        />
                                     </Accordion>
                                 ))}
                             </div>
                         </div>
                     </section>
+
+                    <section style={{ height: "200vh" }}></section>
                 </main>
             </MainLayout>
         </>

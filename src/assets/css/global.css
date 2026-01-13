@@ -3,9 +3,18 @@
     --color-black-rgb: 0, 0, 0;
     --color-filter-black: brightness(0);
 
+    --color-gray-dark: #161616;
+    --color-gray-dark-rgb: 22, 22, 22;
+
+    --color-light-gray: #f4f4f4;
+    --color-light-gray-rgb: 244, 244, 244;
+
     --color-white: #ffffff;
     --color-white-rgb: 255, 255, 255;
     --color-filter-white: brightness(0) invert(1);
+
+    --color-green: #179149;
+    --color-green-rgb: 23, 145, 73;
 
     --color-red: #ff0000;
     --color-red-rgb: 255, 0, 0;
@@ -36,8 +45,10 @@
     --spacing-5xs: 0.6rem;
     --spacing-6xs: 0.4rem;
     --spacing-7xs: 0.2rem;
-    --spacing-container: var(--spacing-xs);
+    --spacing-container: var(--spacing-2sm);
+    --container-max-width: 136.8rem;
     --gap-section: var(--spacing-4xl);
+    --header-height: 13.2rem;
 
     --duration: 0.3s;
     --duration-x2: 0.5s;
@@ -48,6 +59,34 @@
     --border-width: 0.1rem;
     --border-style: solid;
     --border-color: rgba(var(--color-black-rgb), 0.2);
+
+    --font-body: "Open Sans", sans-serif;
+    --font-heading: "Sofia Sans Condensed", sans-serif;
+
+    --font-size-h1: 7rem;
+    --font-size-h2: 5rem;
+    --font-size-h3: 2.4rem;
+    --font-size-h4: 2rem;
+    --font-size-h5: 1.8rem;
+    --font-size-h6: 1.6rem;
+    --font-size-body: 1.6rem;
+    --font-size-description: 1.4rem;
+    --font-size-small: 1.2rem;
+    --font-size-extra-small: 1.1rem;
+    --font-size-tiny: 1rem;
+
+    --line-height-h1: 1.2;
+    --line-height-h2: 1.2;
+    --line-height-h3: 1.2;
+    --line-height-h4: 1.2;
+    --line-height-h5: 1.2;
+    --line-height-h6: 1.2;
+    --line-height-body: 1.2;
+    --line-height-description: 1.2;
+    --line-height-small: 1.2;
+    --line-height-extra-small: 1.2;
+    --line-height-tiny: 1.2;
+    --line-height-extra-tiny: 1.2;
 }
 
 html {
@@ -109,12 +148,13 @@ dd {
 }
 
 body {
+    font-family: var(--font-body);
     margin: 0;
     position: relative;
     min-height: 100svh;
     overflow-x: hidden;
-    background: var(--color-white);
-    color: var(--color-body);
+    background: var(--color-light-gray);
+    color: var(--color-black);
     -webkit-animation-name: pageAnimation;
     animation-name: pageAnimation;
     -webkit-animation-duration: var(--duration-x2);
@@ -205,6 +245,80 @@ button,
     cursor: pointer;
 }
 
+.size-h1 {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    font-family: var(--font-heading);
+}
+.size-h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-family: var(--font-heading);
+}
+.size-h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+}
+.size-h4 {
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+}
+.size-h5 {
+    font-size: var(--font-size-h5);
+    line-height: var(--line-height-h5);
+}
+.size-h6 {
+    font-size: var(--font-size-h6);
+    line-height: var(--line-height-h6);
+}
+
+.size-body {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+}
+.size-description {
+    font-size: var(--font-size-description);
+    line-height: var(--line-height-description);
+}
+.size-small {
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-small);
+}
+.size-extra-small {
+    font-size: var(--font-size-extra-small);
+    line-height: var(--line-height-extra-small);
+}
+.size-tiny {
+    font-size: var(--font-size-tiny);
+    line-height: var(--line-height-tiny);
+}
+.size-extra-tiny {
+    font-size: var(--font-size-extra-tiny);
+    line-height: var(--line-height-extra-tiny);
+}
+
+.weight-bold {
+    font-weight: 700;
+}
+.weight-semibold {
+    font-weight: 600;
+}
+.weight-medium {
+    font-weight: 500;
+}
+.weight-regular {
+    font-weight: 400;
+}
+.weight-light {
+    font-weight: 300;
+}
+.weight-thin {
+    font-weight: 200;
+}
+.weight-extra-light {
+    font-weight: 100;
+}
+
 /* TRANSITION ====================*/
 img,
 a,
@@ -227,6 +341,14 @@ section {
     overflow: clip;
     position: relative;
     width: 100vw;
+}
+
+section.header-margin {
+    margin-top: var(--header-height);
+}
+
+section.header-padding {
+    padding-top: var(--header-height);
 }
 
 .sc-inner {
@@ -369,6 +491,15 @@ section {
     position: fixed;
     top: 0;
     z-index: 100;
+    width: 100%;
+    background-color: var(--color-gray-dark);
+}
+
+.header-nav {
+    height: var(--header-height);
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-container);
 }
 
 /* FOOTER ================================================ */

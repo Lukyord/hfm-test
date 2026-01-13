@@ -11,6 +11,10 @@
         display: none !important;
     }
 
+    :root {
+        --spacing-container: var(--spacing-xs);
+    }
+
     .sc-inner.mb-t-header {
         padding-top: var(--header-height);
     }
