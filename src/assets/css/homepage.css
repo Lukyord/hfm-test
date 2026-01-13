@@ -1,0 +1,83 @@
+/* HOMEPAGE */
+/* HOMEPAGE HERO */
+[data-section="homepage-hero"] {
+    overflow: visible;
+}
+
+[data-section="homepage-hero"] .contact-form .fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+}
+
+[data-section="homepage-hero"] .contact-form {
+    .country-select {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-3xs);
+    }
+
+    .country-search {
+        padding: var(--spacing-5xs) var(--spacing-3xs);
+        border: 1px solid #ddd;
+        border-radius: 0.4rem;
+    }
+
+    .country-list {
+        max-height: 30rem;
+        overflow-y: auto;
+    }
+
+    .country-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3xs);
+        padding: var(--spacing-5xs) var(--spacing-3xs);
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+    .country-item:hover {
+        background: #f5f5f5;
+    }
+
+    .country-item img,
+    .country-select-button img {
+        width: 2rem;
+        aspect-ratio: 3 / 2;
+        object-fit: contain;
+    }
+
+    .country-code {
+        margin-left: auto;
+        color: #666;
+    }
+
+    .country-code-label {
+        font-weight: 600;
+    }
+
+    .country-names {
+        flex: 1;
+        color: #666;
+        font-size: 0.9em;
+    }
+
+    .country-select-button {
+        width: 100%;
+        padding: var(--spacing-5xs) var(--spacing-3xs);
+        border: 1px solid #ddd;
+        border-radius: 0.4rem;
+        background: white;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3xs);
+        text-align: left;
+    }
+}
+
+[data-section="homepage-hero"] .contact-form .field:has(.subfield) {
+    display: flex;
+    gap: var(--spacing-3xs);
+}

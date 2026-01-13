@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals.ts";
 import Homepage from "./pages/Homepage.tsx";
 
 import "./assets/css/global.css";
+import "./assets/css/global-rwd.css";
 
 const router = createBrowserRouter([
     {
