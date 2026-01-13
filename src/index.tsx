@@ -3,8 +3,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
-import reportWebVitals from "./reportWebVitals.ts";
-import Homepage from "./pages/Homepage.tsx";
+import reportWebVitals from "./reportWebVitals";
+import Homepage from "./pages/Homepage";
 
 import "./assets/css/global.css";
 import "./assets/css/global-rwd.css";

@@ -113,8 +113,8 @@ body {
     color: var(--color-body);
     -webkit-animation-name: pageAnimation;
     animation-name: pageAnimation;
-    -webkit-animation-duration: var(--duration-x3);
-    animation-duration: var(--duration-x3);
+    -webkit-animation-duration: var(--duration-x2);
+    animation-duration: var(--duration-x2);
     -webkit-animation-timing-function: var(--timing-function);
     animation-timing-function: var(--timing-function);
     -webkit-animation-iteration-count: 1;
@@ -213,6 +213,12 @@ select {
 }
 
 /* MAIN ================================================ */
+#layout {
+    display: grid;
+    min-height: 100svh;
+    grid-template-rows: 1fr auto;
+}
+
 section {
     overflow: clip;
     position: relative;
@@ -336,6 +342,32 @@ section {
     clip: rect(0 0 0 0);
     overflow: hidden;
 }
+
+.spinner {
+    position: relative;
+    width: var(--font-size-body, 1.2rem);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 0.2rem solid rgba(var(--color-black-rgb), 0.2);
+    border-top-color: transparent;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* HEADER ================================================ */
+#header {
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+/* FOOTER ================================================ */
 
 /* FORM ================================================ */
 *:is(input, textarea, select) {

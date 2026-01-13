@@ -1,9 +1,8 @@
-import React from "react";
-import "../assets/css/homepage.css";
-import "../assets/css/homepage-rwd.css";
+import "@/assets/css/homepage.css";
+import "@/assets/css/homepage-rwd.css";
 
-import MainLayout from "../components/Layout/MainLayout.tsx";
-import ContactForm from "../components/homepage/contact-form/ContactForm.tsx";
+import MainLayout from "@/components/Layout/MainLayout";
+import ContactForm from "@/components/homepage/contact-form/ContactForm";
 
 export default function Homepage() {
     return (

@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../footer/Footer.tsx";
-import Header from "../header/Header.tsx";
+import Footer from "@/components/footer/Footer";
+import Header from "@/components/header/Header";
 
 function Layout({ children }: { children: React.ReactNode }) {
     return (

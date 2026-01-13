@@ -75,6 +75,11 @@
         gap: var(--spacing-3xs);
         text-align: left;
     }
+
+    .country-select-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }
 
 [data-section="homepage-hero"] .contact-form .field:has(.subfield) {
