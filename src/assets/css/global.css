@@ -44,6 +44,10 @@
     --duration-x3: 1s;
     --duration-x4: 1.5s;
     --timing-function: ease-in-out;
+
+    --border-width: 0.1rem;
+    --border-style: solid;
+    --border-color: rgba(var(--color-black-rgb), 0.2);
 }
 
 html {
@@ -440,4 +444,54 @@ section {
     border: none;
     font-size: 24px;
     cursor: pointer;
+}
+
+/* ACCORDION ======================================== */
+.accordion {
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+}
+.accordion .entry-panel {
+    height: 0;
+    overflow: hidden;
+    transition: height var(--duration) var(--timing-function);
+}
+
+.accordion.active .entry-panel {
+    height: var(--accordion-height);
+}
+
+.accordion .entry-panel-inner {
+    padding-bottom: var(--spacing-2sm);
+}
+
+.accordion > .entry-title {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-h5);
+    line-height: var(--line-height-h5);
+    color: inherit;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: var(--spacing-2sm) 0;
+    transition: var(--duration) var(--timing-function);
+    cursor: pointer;
+}
+.accordion.active > .entry-title {
+    color: inherit;
+}
+.accordion > .entry-title:after {
+    font-family: "iconfont";
+    content: "\e908";
+    font-size: var(--icon-size-sm);
+    font-weight: normal;
+    line-height: 1;
+    display: block;
+    margin-left: auto;
+    pointer-events: none;
+    transition: var(--duration) var(--timing-function);
+}
+.accordion.active > .entry-title:after {
+    transform: rotate(-180deg);
 }
