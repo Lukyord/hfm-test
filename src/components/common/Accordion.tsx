@@ -26,9 +26,8 @@ export default function Accordion({ title, children }: AccordionProps) {
 
     return (
         <div className={`accordion ${isOpen ? "active" : ""}`}>
-            <button className="accordion-header" onClick={() => setIsOpen(!isOpen)} type="button">
-                <span>{title}</span>
-                <span className="entry-title">{isOpen ? "−" : "+"}</span>
+            <button className="entry-title" onClick={() => setIsOpen(!isOpen)} type="button">
+                <h3>{title}</h3>
             </button>
             <div className="entry-panel" ref={entryPanelRef}>
                 <div className="entry-panel-inner">{children}</div>

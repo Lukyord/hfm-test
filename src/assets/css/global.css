@@ -465,6 +465,7 @@ section {
 }
 
 .accordion > .entry-title {
+    width: 100%;
     font-family: var(--font-heading);
     font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-h5);

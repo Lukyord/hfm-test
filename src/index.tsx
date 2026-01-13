@@ -8,6 +8,7 @@ import Homepage from "./pages/Homepage";
 
 import "./assets/css/global.css";
 import "./assets/css/global-rwd.css";
+import "./assets/css/iconfont.css";
 
 const router = createBrowserRouter([
     {
