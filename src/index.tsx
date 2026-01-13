@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
-import Homepage from "./pages/Homepage.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import reportWebVitals from "./reportWebVitals.ts";
+import Homepage from "./pages/Homepage.tsx";
 
 import "./assets/css/global.css";
 

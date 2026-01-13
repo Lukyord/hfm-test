@@ -1,12 +1,17 @@
 import React from "react";
 import "../assets/css/homepage.css";
 
-function Homepage() {
+import MainLayout from "../components/Layout/MainLayout.tsx";
+import ContactForm from "../components/homepage/contact-form/ContactForm.tsx";
+
+export default function Homepage() {
     return (
-        <div className="App">
-            <h1>Hello World</h1>
-        </div>
+        <MainLayout>
+            <main className="homepage">
+                <h1>Hello World</h1>
+
+                <ContactForm />
+            </main>
+        </MainLayout>
     );
 }
-
-export default Homepage;
