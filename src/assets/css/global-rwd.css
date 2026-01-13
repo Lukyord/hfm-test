@@ -75,4 +75,19 @@
     .sc-inner.mb-b-200 {
         padding-bottom: calc(var(--gap-section) * 2);
     }
+
+    /* POPUP ======================================== */
+    .popup[data-position-mb="center"] {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+    .popup[data-position-mb="start"] {
+        left: 0;
+        right: auto;
+    }
+    .popup[data-position-mb="end"] {
+        right: 0;
+        left: auto;
+    }
 }

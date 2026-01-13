@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 
 import reportWebVitals from "./reportWebVitals";
 import Homepage from "./pages/Homepage";
+import Theme from "./components/Layout/Theme";
 
 import "./assets/css/global.css";
 import "./assets/css/global-rwd.css";
@@ -21,6 +22,7 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
     <React.StrictMode>
         <Toaster />
+        <Theme />
         <RouterProvider router={router} />
     </React.StrictMode>
 );

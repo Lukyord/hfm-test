@@ -4,9 +4,17 @@ interface PopupProps {
     isOpen: boolean;
     onClose?: () => void;
     children: ReactNode;
+    positionPc?: "center" | "start" | "end";
+    positionMb?: "center" | "start" | "end";
 }
 
-export default function Popup({ isOpen, onClose = () => {}, children }: PopupProps) {
+export default function Popup({
+    isOpen,
+    onClose = () => {},
+    children,
+    positionPc = "center",
+    positionMb = "center",
+}: PopupProps) {
     const popupRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -19,7 +27,10 @@ export default function Popup({ isOpen, onClose = () => {}, children }: PopupPro
         };
 
         const handleClickOutside = (e: MouseEvent) => {
-            if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
+            if (
+                popupRef.current &&
+                !popupRef.current.contains(e.target as Node)
+            ) {
                 onClose();
             }
         };
@@ -34,7 +45,12 @@ export default function Popup({ isOpen, onClose = () => {}, children }: PopupPro
     }, [isOpen, onClose]);
 
     return (
-        <div className={`popup ${isOpen ? "active" : ""}`} ref={popupRef}>
+        <div
+            className={`popup ${isOpen ? "active" : ""}`}
+            data-position-pc={positionPc}
+            data-position-mb={positionMb}
+            ref={popupRef}
+        >
             <div className="popup-content">{children}</div>
         </div>
     );
