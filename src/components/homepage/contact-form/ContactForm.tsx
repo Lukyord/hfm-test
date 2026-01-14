@@ -3,6 +3,7 @@ import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 import {
     TContactFormSchema,
@@ -40,6 +41,7 @@ export default function ContactForm() {
     const [selectedCountry, setSelectedCountry] = useState<Country | null>(
         null
     );
+    const [selectedCountryCode, setSelectedCountryCode] = useState<string>("");
     const [selectedExperience, setSelectedExperience] = useState<string>("");
 
     const countryCodeSelectTriggerRef = useRef<HTMLButtonElement>(null);
@@ -53,12 +55,25 @@ export default function ContactForm() {
         console.log(data);
         reset();
         setSelectedCountry(null);
+        setSelectedCountryCode("");
         setSelectedExperience("");
+
+        const form = document.querySelector(".contact-form");
+        if (form) {
+            const filledFields = form.querySelectorAll(".field.filled");
+            filledFields.forEach((field) => {
+                field.classList.remove("filled");
+            });
+        }
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
-            <h2>Contact Us</h2>
+            <div className="form-ttl">
+                <h3 className="size-h3 weight-bold c-black">
+                    Lorem ipsum dolor sit amet
+                </h3>
+            </div>
 
             {/* FIELDS */}
             <div className="fields">
@@ -92,15 +107,12 @@ export default function ContactForm() {
 
                 {/* COUNTRY */}
                 <div className="field">
-                    <label htmlFor="country">
-                        <span className="field-label">
-                            <span>Country</span>
-                        </span>
-                    </label>
                     <button
                         type="button"
                         onClick={() => setIsCountryPopupOpen((prev) => !prev)}
-                        className="country-select-button"
+                        className={`popup-trigger-button input ${
+                            selectedCountry ? "active" : ""
+                        }`}
                         disabled={isLoadingCountries}
                         ref={countrySelectTriggerRef}
                     >
@@ -128,8 +140,10 @@ export default function ContactForm() {
                         onClose={() => setIsCountryPopupOpen((prev) => !prev)}
                         onSelect={(country: Country) => {
                             setSelectedCountry(country);
+                            const countryCode = getCountryCode(country);
+                            setSelectedCountryCode(countryCode);
                             setValue("country", country.name.common);
-                            setValue("country-code", getCountryCode(country));
+                            setValue("country-code", countryCode);
                             setIsCountryPopupOpen(false);
                         }}
                         countries={countries}
@@ -140,53 +154,37 @@ export default function ContactForm() {
                 {/* PHONE */}
                 <div className="field">
                     {/* COUNTRY CODE */}
-                    <div className="subfield">
-                        <label htmlFor="country-code">
-                            <span className="field-label">
-                                <span>Country Code</span>
-                            </span>
-                        </label>
+                    <div className="subfield country-code">
                         <button
                             type="button"
                             onClick={() =>
                                 setIsCountryCodePopupOpen((prev) => !prev)
                             }
-                            className="country-select-button"
+                            className={`popup-trigger-button input ${
+                                selectedCountryCode ? "active" : ""
+                            }`}
                             disabled={isLoadingCountries}
                             ref={countryCodeSelectTriggerRef}
                         >
                             {isLoadingCountries ? (
                                 <Spinner />
-                            ) : selectedCountry ? (
-                                getCountryCode(selectedCountry)
+                            ) : selectedCountryCode ? (
+                                selectedCountryCode
                             ) : (
-                                "Select Code"
+                                "Code"
                             )}
                         </button>
                         <input
                             type="hidden"
                             {...register("country-code")}
-                            value={
-                                selectedCountry
-                                    ? getCountryCode(selectedCountry)
-                                    : ""
-                            }
+                            value={selectedCountryCode}
                         />
                         <CountryCodeSelect
                             isOpen={isCountryCodePopupOpen}
                             onClose={() => setIsCountryCodePopupOpen(false)}
                             onSelect={(code: string) => {
-                                const countryWithCode = countries.find(
-                                    (c) => getCountryCode(c) === code
-                                );
-                                if (countryWithCode) {
-                                    setSelectedCountry(countryWithCode);
-                                    setValue(
-                                        "country",
-                                        countryWithCode.name.common
-                                    );
-                                    setValue("country-code", code);
-                                }
+                                setSelectedCountryCode(code);
+                                setValue("country-code", code);
                                 setIsCountryCodePopupOpen(false);
                             }}
                             countryCodes={countryCodes}
@@ -196,22 +194,18 @@ export default function ContactForm() {
 
                     {/* PHONE */}
                     <div className="subfield grow">
-                        <label htmlFor="phone">
-                            <span className="field-label">
-                                <span>Phone</span>
-                            </span>
-                        </label>
-                        <input
-                            type="text"
-                            id="phone"
-                            {...register("phone")}
-                            autoComplete="tel"
-                        />
-                        {errors.phone && (
-                            <FieldError
-                                error={errors.phone.message as string}
+                        <FormField
+                            label="Phone"
+                            htmlFor="phone"
+                            error={errors.phone?.message as string}
+                        >
+                            <input
+                                type="text"
+                                id="phone"
+                                {...register("phone")}
+                                autoComplete="tel"
                             />
-                        )}
+                        </FormField>
                     </div>
                 </div>
 
@@ -234,18 +228,17 @@ export default function ContactForm() {
                     label="Experience"
                     htmlFor="experience"
                     error={errors.experience?.message as string}
+                    noLabel
+                    className="experience-field"
                 >
-                    <label htmlFor="experience">
-                        <span className="field-label">
-                            <span>Experience</span>
-                        </span>
-                    </label>
                     <button
                         type="button"
                         onClick={() =>
                             setIsExperiencePopupOpen((prev) => !prev)
                         }
-                        className="country-select-button"
+                        className={`popup-trigger-button input ${
+                            selectedExperience ? "active" : ""
+                        }`}
                         ref={experienceSelectTriggerRef}
                     >
                         {selectedExperience
@@ -277,10 +270,38 @@ export default function ContactForm() {
                         />
                     )}
                 </FormField>
+
+                <div className="accept-terms">
+                    <div className="checkbox">
+                        <input
+                            type="checkbox"
+                            id="accept-terms"
+                            {...register("accept-terms")}
+                        />
+                        <label htmlFor="accept-terms" className="size-small">
+                            I have read and accepted the{" "}
+                            <Link to="#privacy-policy" className="c-dark-red">
+                                Privacy Policy
+                            </Link>{" "}
+                            and{" "}
+                            <Link
+                                to="#terms-and-conditions"
+                                className="c-dark-red"
+                            >
+                                Terms and Conditions
+                            </Link>
+                        </label>
+                    </div>
+                    {errors["accept-terms"] && (
+                        <FieldError
+                            error={errors["accept-terms"].message as string}
+                        />
+                    )}
+                </div>
             </div>
 
-            <button type="submit" disabled={isSubmitting}>
-                Submit
+            <button type="submit" disabled={isSubmitting} className="button">
+                JOIN NOW
             </button>
         </form>
     );

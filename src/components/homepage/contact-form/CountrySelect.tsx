@@ -42,11 +42,15 @@ export default function CountrySelect({
                     placeholder="Search countries..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="country-search"
+                    className="popup-search"
                 />
                 <div className="country-list">
                     {filtered.length === 0 ? (
-                        <div className="country-empty">No countries found</div>
+                        <div className="country-empty">
+                            <p className="size-extra-small">
+                                No countries found
+                            </p>
+                        </div>
                     ) : (
                         filtered.map((country) => (
                             <div
@@ -58,7 +62,9 @@ export default function CountrySelect({
                                     src={country.flags.svg}
                                     alt={country.name.common}
                                 />
-                                <span>{country.name.common}</span>
+                                <span className="country-name">
+                                    {country.name.common}
+                                </span>
                                 <span className="country-code">
                                     {country.idd.root}
                                     {country.idd.suffixes[0]}

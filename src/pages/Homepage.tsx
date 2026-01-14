@@ -1,10 +1,13 @@
 import "@/assets/css/homepage.css";
 import "@/assets/css/homepage-rwd.css";
 
+import heroImage from "@/assets/media/hero-bg.webp";
+
 import MainLayout from "@/components/Layout/MainLayout";
 import ContactForm from "@/components/homepage/contact-form/ContactForm";
 import Accordion from "@/components/common/Accordion";
 import ogImage from "@/assets/media/og.webp";
+import RenderMedia from "@/components/common/Media";
 
 export default function Homepage() {
     const faq = [
@@ -43,10 +46,28 @@ export default function Homepage() {
                 <main className="homepage">
                     <section
                         data-section="homepage-hero"
-                        className="header-margin"
+                        className="header-padding"
                     >
                         <div className="sc-inner">
+                            <div className="cover">
+                                <RenderMedia
+                                    src={heroImage}
+                                    srcMobile={heroImage}
+                                    alt="Hero"
+                                />
+                            </div>
                             <div className="container">
+                                <div className="sc-ttl">
+                                    <h2 className="size-h1 weight-bold">
+                                        <span className="c-gold-gradient">
+                                            Lorem ipsum dolor
+                                        </span>
+                                        <br />
+                                        <span className="c-white">
+                                            sit amet tosik
+                                        </span>
+                                    </h2>
+                                </div>
                                 <ContactForm />
                             </div>
                         </div>

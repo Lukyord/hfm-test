@@ -37,6 +37,9 @@
     --color-red: #ff0000;
     --color-red-rgb: 255, 0, 0;
 
+    --color-dark-red: #cd0511;
+    --color-dark-red-rgb: 205, 5, 17;
+
     --spacing-8xl: 16rem;
     --spacing-7xl: 14rem;
     --spacing-6xl: 12rem;
@@ -64,6 +67,10 @@
     --container-max-width: 136.8rem;
     --gap-section: var(--spacing-4xl);
     --header-height: 13.2rem;
+    --input-height: 4.2rem;
+    --button-height: 5.4rem;
+    --input-spacing-x: var(--spacing-2xs);
+    --input-spacing-y: var(--spacing-5xs);
 
     --duration: 0.3s;
     --duration-x2: 0.5s;
@@ -90,7 +97,7 @@
     --font-size-extra-small: 1.1rem;
     --font-size-tiny: 1rem;
 
-    --line-height-h1: 1.2;
+    --line-height-h1: 1;
     --line-height-h2: 1.2;
     --line-height-h3: 1.2;
     --line-height-h4: 1.2;
@@ -178,7 +185,7 @@ body {
     font-family: var(--font-body);
     font-size: var(--font-size-body);
     line-height: var(--line-height-body);
-    font-weight: var(--font-weight-regular);
+    font-weight: 400;
     margin: 0;
     position: relative;
     min-height: 100svh;
@@ -423,6 +430,15 @@ img {
 .c-red {
     color: var(--color-red);
 }
+.c-dark-red {
+    color: var(--color-dark-red);
+}
+.c-gold-gradient {
+    background: -webkit-linear-gradient(0deg, #fcd678 0%, #bc8c2f 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
 .ic,
 .ic-name {
@@ -440,6 +456,7 @@ button,
 input,
 textarea,
 select,
+.label.anim,
 .ic:before {
     transition: var(--duration) var(--timing-function);
 }
@@ -568,6 +585,10 @@ section.header-padding {
 
 .block-desc > * {
     transition: var(--duration) var(--timing-function);
+}
+
+.sc-ttl {
+    text-align: center;
 }
 
 .visually-hidden {
@@ -844,10 +865,10 @@ html.no-touchevents .header-customer .customer-register:hover {
 /* FOOTER ================================================ */
 
 /* FORM ================================================ */
-*:is(input, textarea, select) {
-    background: none;
-    border-radius: 0;
-    border: 0.1rem solid var(--color-black);
+*:is(input, textarea, select, .input) {
+    background: transparent;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--color-mid-gray);
     font-family: var(--font-body);
     font-weight: 400;
     font-size: var(--font-size-body);
@@ -861,6 +882,11 @@ html.no-touchevents .header-customer .customer-register:hover {
     width: 100%;
     height: var(--input-height);
     padding: var(--input-spacing-y) var(--input-spacing-x);
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 }
 
 .field {
@@ -869,6 +895,7 @@ html.no-touchevents .header-customer .customer-register:hover {
 
 .subfield {
     flex-shrink: 0;
+    position: relative;
 }
 
 .subfield.grow {
@@ -876,7 +903,91 @@ html.no-touchevents .header-customer .customer-register:hover {
 }
 
 .field-error {
+    margin-top: var(--spacing-5xs);
     color: var(--color-red);
+    font-size: var(--font-size-extra-small);
+    line-height: var(--line-height-extra-small);
+}
+
+.label {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    position: relative;
+    display: block;
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: inherit;
+    text-transform: none;
+    color: currentColor;
+    opacity: 1;
+}
+
+.label.anim {
+    height: auto;
+    width: fit-content;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: absolute;
+    z-index: 1;
+    left: calc(var(--input-spacing-x) / 2);
+    top: calc(var(--input-height) / 2);
+    transform: translateY(-50%);
+    padding: 0 calc(var(--input-spacing-x) / 2);
+    pointer-events: none;
+    background-color: var(--color-white);
+}
+
+.field.filled .label.anim.fixed {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: var(--font-size-extra-small);
+    opacity: var(--opacity);
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    grid-gap: var(--spacing-5xs);
+}
+
+.checkbox input[type="checkbox"] {
+    --input-height: 20px;
+    box-shadow: unset;
+    border: none;
+    background: none;
+    padding: inherit;
+    margin: unset;
+    min-width: unset;
+    font: inherit;
+    line-height: normal;
+    text-align: center;
+    width: unset;
+    font: inherit;
+    color: currentColor;
+    width: 1em;
+    height: 1em;
+    border: 0.05em solid currentColor;
+    border-radius: 0.15em;
+    display: grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    transform-origin: center;
+    box-shadow: inset 1em 1em currentColor;
+    clip-path: polygon(16% 48%, 10% 60%, 48% 90%, 92% 20%, 80% 10%, 45% 70%);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
 }
 
 /* POPUP ======================================== */
@@ -890,6 +1001,7 @@ html.no-touchevents .header-customer .customer-register:hover {
     transition: opacity 0.3s ease-in-out;
     pointer-events: none;
     overflow: hidden;
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.1);
 }
 
 .popup[data-position-pc="center"] {
@@ -952,7 +1064,6 @@ html.no-touchevents .header-customer .customer-register:hover {
 .accordion > .entry-title {
     width: 100%;
     font-family: var(--font-heading);
-    font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-h5);
     line-height: var(--line-height-h5);
     color: inherit;
@@ -990,8 +1101,6 @@ html.no-touchevents .header-customer .customer-register:hover {
     --button-hover-bg: var(--color-light-green);
     --button-color: var(--color-white);
     --button-hover-color: var(--color-white);
-    text-decoration: none !important;
-    box-shadow: none !important;
     margin: 0;
     position: relative;
     display: inline-flex;
@@ -999,18 +1108,25 @@ html.no-touchevents .header-customer .customer-register:hover {
     justify-content: center;
     grid-gap: var(--spacing-2xs);
     max-width: 100%;
+    min-width: 30.7rem;
     height: var(--button-height);
     padding: 0 var(--spacing-4xs);
-    color: var(--button-color) !important;
-    background: var(--button-bg) !important;
-    border: var(--button-border) !important;
+    color: var(--button-color);
+    background: var(--button-bg);
+    border: var(--button-border);
     border-radius: 0.4rem;
     overflow: hidden;
     font-family: var(--font-body);
-    font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-body);
-    line-height: var(--line-height-body);
+    font-weight: 700;
+    font-size: var(--font-size-h6);
+    line-height: var(--line-height-h6);
     text-align: center;
     transition: var(--duration) var(--timing-function);
     text-transform: uppercase;
+}
+
+html.no-touchevents .button:hover {
+    border: var(--button-hover-border);
+    background: var(--button-hover-bg);
+    color: var(--button-hover-color);
 }

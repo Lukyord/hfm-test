@@ -28,6 +28,9 @@ export const contactFormSchema = z
             .min(1, { message: "Email is required" })
             .regex(emailRegex, { message: "Invalid email address" }),
         experience: z.enum(experienceValues, { message: "Experience is required" }),
+        "accept-terms": z.boolean().refine((val) => val === true, {
+            message: "You must accept the Privacy Policy and Terms and Conditions",
+        }),
     })
     .transform((data) => ({
         ...data,

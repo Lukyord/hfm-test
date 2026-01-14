@@ -44,19 +44,27 @@ export default function CountryCodeSelect({
     };
 
     return (
-        <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}>
+        <Popup
+            isOpen={isOpen}
+            onClose={onClose}
+            triggerRef={triggerRef}
+            positionPc="start"
+            positionMb="start"
+        >
             <div className="country-select">
                 <input
                     type="text"
                     placeholder="Search codes or countries..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="country-search"
+                    className="popup-search"
                 />
                 <div className="country-list">
                     {filtered.length === 0 ? (
                         <div className="country-empty">
-                            No country codes found
+                            <p className="size-extra-small">
+                                No country codes found
+                            </p>
                         </div>
                     ) : (
                         filtered.map((item) => (
@@ -69,13 +77,13 @@ export default function CountryCodeSelect({
                                     src={item.countries[0].flags.png}
                                     alt={item.countries[0].name.common}
                                 />
-                                <span className="country-code-label">
-                                    {item.code}
-                                </span>
-                                <span className="country-names">
+                                <span className="country-name">
                                     {item.countries
                                         .map((c) => c.name.common)
                                         .join(", ")}
+                                </span>
+                                <span className="country-code">
+                                    {item.code}
                                 </span>
                             </div>
                         ))
