@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 
 import reportWebVitals from "./reportWebVitals";
-import Homepage from "./pages/Homepage";
+import Homepage from "./pages/homepage/Homepage";
 import Theme from "./components/Layout/Theme";
 
 import "./assets/css/global.css";

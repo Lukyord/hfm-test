@@ -54,10 +54,7 @@ export default function FormField({
     return (
         <div
             ref={fieldRef}
-            className={`
-                field
-                ${className} 
-                ${isFilled ? "filled" : ""} 
+            className={`field ${className}  ${isFilled ? "filled" : ""} 
             `}
         >
             {!noLabel && (

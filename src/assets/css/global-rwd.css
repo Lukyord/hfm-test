@@ -12,7 +12,37 @@
     }
 
     :root {
-        --spacing-container: var(--spacing-xs);
+        --spacing-container: var(--spacing-sm);
+        --logo-height: 4.2rem;
+        --header-height: 6.8rem;
+        --button-height: 4.2rem;
+
+        --font-size-h1: 4.8rem;
+        --font-size-h2: 4rem;
+        --font-size-h3: 2rem;
+        --font-size-h4: 1.8rem;
+        --font-size-h5: 1.6rem;
+        --font-size-h6: 1.4rem;
+        --font-size-body: 1.4rem;
+        --font-size-description: 1.2rem;
+        --font-size-small: 1.1rem;
+        --font-size-extra-small: 1rem;
+        --font-size-tiny: 0.9rem;
+
+        --line-height-h1: 1;
+        --line-height-h2: 1.2;
+        --line-height-h3: 1.2;
+        --line-height-h4: 1.2;
+        --line-height-h5: 1.2;
+        --line-height-h6: 1.2;
+        --line-height-body: 1.2;
+        --line-height-description: 1.85;
+        --line-height-small: 1.2;
+        --line-height-extra-small: 1.2;
+        --line-height-tiny: 1.2;
+        --line-height-extra-tiny: 1.2;
+
+        --gap-section: var(--spacing-xl);
     }
 
     .sc-inner.mb-t-header {
@@ -76,6 +106,11 @@
         padding-bottom: calc(var(--gap-section) * 2);
     }
 
+    /* FORM ======================================== */
+    *:is(input, textarea, select, .input) {
+        border-radius: 0.4rem;
+    }
+
     /* POPUP ======================================== */
     .popup[data-position-mb="center"] {
         left: 50%;
@@ -85,9 +120,115 @@
     .popup[data-position-mb="start"] {
         left: 0;
         right: auto;
+        transform: unset;
     }
     .popup[data-position-mb="end"] {
         right: 0;
         left: auto;
+        transform: unset;
+    }
+
+    .popup-content {
+        padding: var(--spacing-3xs);
+        border-radius: 0.4rem;
+    }
+
+    /* HEADER  */
+    .panel {
+        position: fixed;
+        z-index: 99;
+        top: var(--header-height);
+        left: 0;
+        width: 100vw;
+        height: calc(100dvh - var(--header-height));
+        background-color: var(--color-gray-dark);
+        overflow: hidden;
+        z-index: 95;
+        pointer-events: none;
+        transition: transform var(--duration-x3) cubic-bezier(0.83, 0, 0.17, 1);
+        transform: translateX(100%);
+    }
+
+    html.header-menu-enabled .panel {
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    .panel-scroll {
+        --mask-box-image-offset: var(--spacing-xl);
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -ms-scroll-chaining: none;
+        overscroll-behavior: contain;
+        -webkit-mask-box-image: -webkit-linear-gradient(
+            -90deg,
+            transparent 0%,
+            white var(--mask-box-image-offset),
+            white calc(100% - var(--mask-box-image-offset)),
+            transparent 100%
+        );
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .panel-body {
+        --padding-y: var(--spacing-xl);
+        min-height: calc(100dvh - var(--header-height));
+        padding: var(--padding-y) var(--spacing-container);
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .header-content-row .logo-desc {
+        margin-bottom: var(--spacing-6xs);
+    }
+
+    .header-menu {
+        margin-left: 0;
+        flex-grow: unset;
+    }
+
+    .header-menu .menu {
+        flex-direction: column;
+        gap: var(--spacing-xs);
+        align-items: flex-start;
+        flex-grow: 1;
+    }
+
+    .header-menu .menu li a {
+        font-size: var(--font-size-h2);
+        line-height: var(--line-height-h2);
+    }
+
+    .header-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-xs);
+    }
+
+    .header-customer {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: var(--spacing-md);
+    }
+
+    /* ACCORDION ======================================== */
+    .accordion {
+        --padding-y: var(--spacing-xs);
+        --padding-left: var(--spacing-sm);
+        --padding-right: var(--spacing-sm);
+    }
+
+    /* COMPONENT ================================ */
+    .template-section .container {
+        gap: var(--spacing-lg);
     }
 }

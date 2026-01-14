@@ -53,7 +53,7 @@ export default function LanguageSelector() {
                 isOpen={isPopupOpen}
                 onClose={() => setIsPopupOpen(false)}
                 positionPc="center"
-                positionMb="end"
+                positionMb="center"
                 triggerRef={languageSelectorTriggerRef}
             >
                 <div className="language-list">

@@ -1,45 +1,39 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import logo from "@/assets/media/logo.svg";
 
-import LanguageSelector from "./LanguageSelector";
 import RenderMedia from "../common/Media";
+import HeaderCustomer from "./HeaderCustomer";
+import HeaderMenuCtrl from "./HeaderMenuCtrl";
+import HeaderCta from "./HeaderCta";
 
 export default function Header() {
-    const closeMenu = () => {};
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (isMenuOpen) {
+            document.documentElement.classList.add("header-menu-enabled");
+        } else {
+            document.documentElement.classList.remove("header-menu-enabled");
+        }
+    }, [isMenuOpen]);
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
 
     return (
         <header id="header">
             <div className="header-nav">
-                <div className="header-content-row">
+                <div className="header-content-row show-md">
                     <div className="logo-desc">
                         <p className="c-gray size-tiny">
                             Member of HF Markets Group
                         </p>
                     </div>
 
-                    <div className="header-cta">
-                        <Link to="#download-app" className="download-app">
-                            <i className="ic ic-iphone size-icon-xxs"></i>
-                            <span className="size-description">
-                                Download App
-                            </span>
-                        </Link>
-
-                        <div className="cta-items">
-                            <div className="cta-item">
-                                <Link to="#contact-us">Contact us</Link>
-                            </div>
-                            <div className="cta-item">
-                                <Link to="#partner-with-us">
-                                    Partner with us
-                                </Link>
-                            </div>
-                            <div className="cta-item">
-                                <LanguageSelector />
-                            </div>
-                        </div>
-                    </div>
+                    <HeaderCta className="show-md" />
                 </div>
 
                 <div className="header-content-row">
@@ -93,19 +87,20 @@ export default function Header() {
                                             </Link>
                                         </li>
                                     </ul>
+
+                                    <HeaderCustomer />
+
+                                    <HeaderCta className="hidden-device-md" />
                                 </div>
                             </div>
                         </div>
                     </nav>
 
-                    <div className="header-customer">
-                        <Link to="#login" className="customer-login">
-                            <span>Login</span>
-                        </Link>
-                        <Link to="#register" className="customer-register">
-                            <span>Register</span>
-                        </Link>
-                    </div>
+                    <HeaderMenuCtrl
+                        isMenuOpen={isMenuOpen}
+                        setIsMenuOpen={setIsMenuOpen}
+                        className="hidden-device-md"
+                    />
                 </div>
             </div>
         </header>

@@ -271,6 +271,7 @@ export default function ContactForm() {
                     )}
                 </FormField>
 
+                {/* ACCEPT TERMS */}
                 <div className="accept-terms">
                     <div className="checkbox">
                         <input
