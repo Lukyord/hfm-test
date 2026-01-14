@@ -1,15 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, RefObject } from "react";
 import Popup from "@/components/common/Popup";
 import type { Country } from "./type";
 
-interface CountrySelectProps {
+type CountrySelectProps = {
     isOpen: boolean;
     onClose: () => void;
     onSelect: (country: Country) => void;
     countries: Country[];
-}
+    triggerRef?: RefObject<HTMLElement | null>;
+};
 
-export default function CountrySelect({ isOpen, onClose, onSelect, countries }: CountrySelectProps) {
+export default function CountrySelect({
+    isOpen,
+    onClose,
+    onSelect,
+    countries,
+    triggerRef,
+}: CountrySelectProps) {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -18,7 +25,9 @@ export default function CountrySelect({ isOpen, onClose, onSelect, countries }: 
         }
     }, [isOpen]);
 
-    const filtered = countries.filter((c) => c.name.common.toLowerCase().includes(search.toLowerCase()));
+    const filtered = countries.filter((c) =>
+        c.name.common.toLowerCase().includes(search.toLowerCase())
+    );
 
     const handleSelect = (country: Country) => {
         setSearch("");
@@ -26,7 +35,7 @@ export default function CountrySelect({ isOpen, onClose, onSelect, countries }: 
     };
 
     return (
-        <Popup isOpen={isOpen} onClose={onClose}>
+        <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}>
             <div className="country-select">
                 <input
                     type="text"
@@ -45,7 +54,10 @@ export default function CountrySelect({ isOpen, onClose, onSelect, countries }: 
                                 className="country-item"
                                 onClick={() => handleSelect(country)}
                             >
-                                <img src={country.flags.svg} alt={country.name.common} />
+                                <img
+                                    src={country.flags.svg}
+                                    alt={country.name.common}
+                                />
                                 <span>{country.name.common}</span>
                                 <span className="country-code">
                                     {country.idd.root}

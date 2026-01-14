@@ -1,20 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, RefObject } from "react";
 import Popup from "@/components/common/Popup";
 import type { Country } from "./type";
 
-interface CountryCodeItem {
+type CountryCodeItem = {
     code: string;
     countries: Country[];
-}
+};
 
-interface CountryCodeSelectProps {
+type CountryCodeSelectProps = {
     isOpen: boolean;
     onClose: () => void;
     onSelect: (code: string) => void;
     countryCodes: CountryCodeItem[];
-}
+    triggerRef?: RefObject<HTMLElement | null>;
+};
 
-export default function CountryCodeSelect({ isOpen, onClose, onSelect, countryCodes }: CountryCodeSelectProps) {
+export default function CountryCodeSelect({
+    isOpen,
+    onClose,
+    onSelect,
+    countryCodes,
+    triggerRef,
+}: CountryCodeSelectProps) {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -26,7 +33,9 @@ export default function CountryCodeSelect({ isOpen, onClose, onSelect, countryCo
     const filtered = countryCodes.filter(
         (item) =>
             item.code.toLowerCase().includes(search.toLowerCase()) ||
-            item.countries.some((c) => c.name.common.toLowerCase().includes(search.toLowerCase()))
+            item.countries.some((c) =>
+                c.name.common.toLowerCase().includes(search.toLowerCase())
+            )
     );
 
     const handleSelect = (code: string) => {
@@ -35,7 +44,7 @@ export default function CountryCodeSelect({ isOpen, onClose, onSelect, countryCo
     };
 
     return (
-        <Popup isOpen={isOpen} onClose={onClose}>
+        <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}>
             <div className="country-select">
                 <input
                     type="text"
@@ -46,14 +55,27 @@ export default function CountryCodeSelect({ isOpen, onClose, onSelect, countryCo
                 />
                 <div className="country-list">
                     {filtered.length === 0 ? (
-                        <div className="country-empty">No country codes found</div>
+                        <div className="country-empty">
+                            No country codes found
+                        </div>
                     ) : (
                         filtered.map((item) => (
-                            <div key={item.code} className="country-item" onClick={() => handleSelect(item.code)}>
-                                <img src={item.countries[0].flags.png} alt={item.countries[0].name.common} />
-                                <span className="country-code-label">{item.code}</span>
+                            <div
+                                key={item.code}
+                                className="country-item"
+                                onClick={() => handleSelect(item.code)}
+                            >
+                                <img
+                                    src={item.countries[0].flags.png}
+                                    alt={item.countries[0].name.common}
+                                />
+                                <span className="country-code-label">
+                                    {item.code}
+                                </span>
                                 <span className="country-names">
-                                    {item.countries.map((c) => c.name.common).join(", ")}
+                                    {item.countries
+                                        .map((c) => c.name.common)
+                                        .join(", ")}
                                 </span>
                             </div>
                         ))

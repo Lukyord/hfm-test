@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { FieldValues } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-hot-toast";
 
-import { TContactFormSchema, contactFormSchema, experienceOptions, Country } from "./type";
+import {
+    TContactFormSchema,
+    contactFormSchema,
+    experienceOptions,
+    Country,
+} from "./type";
 import { useCountries, useCountryCodes, getCountryCode } from "./useCountries";
 
 import CountrySelect from "./CountrySelect";
@@ -32,8 +37,14 @@ export default function ContactForm() {
     const [isCountryPopupOpen, setIsCountryPopupOpen] = useState(false);
     const [isCountryCodePopupOpen, setIsCountryCodePopupOpen] = useState(false);
     const [isExperiencePopupOpen, setIsExperiencePopupOpen] = useState(false);
-    const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
+    const [selectedCountry, setSelectedCountry] = useState<Country | null>(
+        null
+    );
     const [selectedExperience, setSelectedExperience] = useState<string>("");
+
+    const countryCodeSelectTriggerRef = useRef<HTMLButtonElement>(null);
+    const countrySelectTriggerRef = useRef<HTMLButtonElement>(null);
+    const experienceSelectTriggerRef = useRef<HTMLButtonElement>(null);
 
     async function onSubmit(data: FieldValues) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -52,13 +63,31 @@ export default function ContactForm() {
             {/* FIELDS */}
             <div className="fields">
                 {/* FIRST NAME */}
-                <FormField label="First Name" htmlFor="first-name" error={errors["first-name"]?.message as string}>
-                    <input type="text" id="first-name" {...register("first-name")} autoComplete="given-name" />
+                <FormField
+                    label="First Name"
+                    htmlFor="first-name"
+                    error={errors["first-name"]?.message as string}
+                >
+                    <input
+                        type="text"
+                        id="first-name"
+                        {...register("first-name")}
+                        autoComplete="given-name"
+                    />
                 </FormField>
 
                 {/* LAST NAME */}
-                <FormField label="Last Name" htmlFor="last-name" error={errors["last-name"]?.message as string}>
-                    <input type="text" id="last-name" {...register("last-name")} autoComplete="family-name" />
+                <FormField
+                    label="Last Name"
+                    htmlFor="last-name"
+                    error={errors["last-name"]?.message as string}
+                >
+                    <input
+                        type="text"
+                        id="last-name"
+                        {...register("last-name")}
+                        autoComplete="family-name"
+                    />
                 </FormField>
 
                 {/* COUNTRY */}
@@ -70,25 +99,33 @@ export default function ContactForm() {
                     </label>
                     <button
                         type="button"
-                        onClick={() => setIsCountryPopupOpen(true)}
+                        onClick={() => setIsCountryPopupOpen((prev) => !prev)}
                         className="country-select-button"
                         disabled={isLoadingCountries}
+                        ref={countrySelectTriggerRef}
                     >
                         {isLoadingCountries ? (
                             <Spinner />
                         ) : selectedCountry ? (
                             <>
-                                <img src={selectedCountry.flags.svg} alt={selectedCountry.name.common} />
+                                <img
+                                    src={selectedCountry.flags.svg}
+                                    alt={selectedCountry.name.common}
+                                />
                                 {selectedCountry.name.common}
                             </>
                         ) : (
                             "Select Country"
                         )}
                     </button>
-                    <input type="hidden" {...register("country")} value={selectedCountry?.name.common || ""} />
+                    <input
+                        type="hidden"
+                        {...register("country")}
+                        value={selectedCountry?.name.common || ""}
+                    />
                     <CountrySelect
                         isOpen={isCountryPopupOpen}
-                        onClose={() => setIsCountryPopupOpen(false)}
+                        onClose={() => setIsCountryPopupOpen((prev) => !prev)}
                         onSelect={(country: Country) => {
                             setSelectedCountry(country);
                             setValue("country", country.name.common);
@@ -96,6 +133,7 @@ export default function ContactForm() {
                             setIsCountryPopupOpen(false);
                         }}
                         countries={countries}
+                        triggerRef={countrySelectTriggerRef}
                     />
                 </div>
 
@@ -110,9 +148,12 @@ export default function ContactForm() {
                         </label>
                         <button
                             type="button"
-                            onClick={() => setIsCountryCodePopupOpen(true)}
+                            onClick={() =>
+                                setIsCountryCodePopupOpen((prev) => !prev)
+                            }
                             className="country-select-button"
                             disabled={isLoadingCountries}
+                            ref={countryCodeSelectTriggerRef}
                         >
                             {isLoadingCountries ? (
                                 <Spinner />
@@ -125,21 +166,31 @@ export default function ContactForm() {
                         <input
                             type="hidden"
                             {...register("country-code")}
-                            value={selectedCountry ? getCountryCode(selectedCountry) : ""}
+                            value={
+                                selectedCountry
+                                    ? getCountryCode(selectedCountry)
+                                    : ""
+                            }
                         />
                         <CountryCodeSelect
                             isOpen={isCountryCodePopupOpen}
                             onClose={() => setIsCountryCodePopupOpen(false)}
                             onSelect={(code: string) => {
-                                const countryWithCode = countries.find((c) => getCountryCode(c) === code);
+                                const countryWithCode = countries.find(
+                                    (c) => getCountryCode(c) === code
+                                );
                                 if (countryWithCode) {
                                     setSelectedCountry(countryWithCode);
-                                    setValue("country", countryWithCode.name.common);
+                                    setValue(
+                                        "country",
+                                        countryWithCode.name.common
+                                    );
                                     setValue("country-code", code);
                                 }
                                 setIsCountryCodePopupOpen(false);
                             }}
                             countryCodes={countryCodes}
+                            triggerRef={countryCodeSelectTriggerRef}
                         />
                     </div>
 
@@ -150,18 +201,40 @@ export default function ContactForm() {
                                 <span>Phone</span>
                             </span>
                         </label>
-                        <input type="text" id="phone" {...register("phone")} autoComplete="tel" />
-                        {errors.phone && <FieldError error={errors.phone.message as string} />}
+                        <input
+                            type="text"
+                            id="phone"
+                            {...register("phone")}
+                            autoComplete="tel"
+                        />
+                        {errors.phone && (
+                            <FieldError
+                                error={errors.phone.message as string}
+                            />
+                        )}
                     </div>
                 </div>
 
                 {/* EMAIL */}
-                <FormField label="Email" htmlFor="email" error={errors.email?.message as string}>
-                    <input type="email" id="email" {...register("email")} autoComplete="email" />
+                <FormField
+                    label="Email"
+                    htmlFor="email"
+                    error={errors.email?.message as string}
+                >
+                    <input
+                        type="email"
+                        id="email"
+                        {...register("email")}
+                        autoComplete="email"
+                    />
                 </FormField>
 
                 {/* EXPERIENCE */}
-                <FormField label="Experience" htmlFor="experience" error={errors.experience?.message as string}>
+                <FormField
+                    label="Experience"
+                    htmlFor="experience"
+                    error={errors.experience?.message as string}
+                >
                     <label htmlFor="experience">
                         <span className="field-label">
                             <span>Experience</span>
@@ -169,24 +242,40 @@ export default function ContactForm() {
                     </label>
                     <button
                         type="button"
-                        onClick={() => setIsExperiencePopupOpen(true)}
+                        onClick={() =>
+                            setIsExperiencePopupOpen((prev) => !prev)
+                        }
                         className="country-select-button"
+                        ref={experienceSelectTriggerRef}
                     >
                         {selectedExperience
-                            ? experienceOptions.find((opt) => opt.value === selectedExperience)?.label
+                            ? experienceOptions.find(
+                                  (opt) => opt.value === selectedExperience
+                              )?.label
                             : "Select Experience"}
                     </button>
-                    <input type="hidden" {...register("experience")} value={selectedExperience || ""} />
+                    <input
+                        type="hidden"
+                        {...register("experience")}
+                        value={selectedExperience || ""}
+                    />
                     <ExperienceSelect
                         isOpen={isExperiencePopupOpen}
                         onClose={() => setIsExperiencePopupOpen(false)}
-                        onSelect={(value: (typeof experienceOptions)[number]["value"]) => {
+                        onSelect={(
+                            value: (typeof experienceOptions)[number]["value"]
+                        ) => {
                             setSelectedExperience(value);
                             setValue("experience", value);
                             setIsExperiencePopupOpen(false);
                         }}
+                        triggerRef={experienceSelectTriggerRef}
                     />
-                    {errors.experience && <FieldError error={errors.experience.message as string} />}
+                    {errors.experience && (
+                        <FieldError
+                            error={errors.experience.message as string}
+                        />
+                    )}
                 </FormField>
             </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Popup from "@/components/common/Popup";
 import flagEn from "@/assets/media/lang-flag-en.webp";
 import flagTh from "@/assets/media/lang-flag-th.webp";
@@ -20,18 +20,24 @@ export default function LanguageSelector() {
         languages[0]
     );
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const languageSelectorTriggerRef = useRef<HTMLButtonElement>(null);
 
     const handleLanguageSelect = (language: Language) => {
         setCurrentLanguage(language);
         setIsPopupOpen(false);
     };
 
+    const handleToggle = () => {
+        setIsPopupOpen((prev) => !prev);
+    };
+
     return (
         <div className="language-selector">
             <button
+                ref={languageSelectorTriggerRef}
                 type="button"
                 className="language-selector-button"
-                onClick={() => setIsPopupOpen(true)}
+                onClick={handleToggle}
                 aria-label="Select language"
             >
                 <div className="flag">
@@ -46,8 +52,9 @@ export default function LanguageSelector() {
             <Popup
                 isOpen={isPopupOpen}
                 onClose={() => setIsPopupOpen(false)}
-                positionPc="end"
+                positionPc="center"
                 positionMb="end"
+                triggerRef={languageSelectorTriggerRef}
             >
                 <div className="language-list">
                     {languages.map((language) => (

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef } from "react";
+import React, { ReactNode, useEffect, useRef, RefObject } from "react";
 
 interface PopupProps {
     isOpen: boolean;
@@ -6,6 +6,7 @@ interface PopupProps {
     children: ReactNode;
     positionPc?: "center" | "start" | "end";
     positionMb?: "center" | "start" | "end";
+    triggerRef?: RefObject<HTMLElement | null>;
 }
 
 export default function Popup({
@@ -14,6 +15,7 @@ export default function Popup({
     children,
     positionPc = "center",
     positionMb = "center",
+    triggerRef,
 }: PopupProps) {
     const popupRef = useRef<HTMLDivElement>(null);
 
@@ -27,9 +29,11 @@ export default function Popup({
         };
 
         const handleClickOutside = (e: MouseEvent) => {
+            const target = e.target as Node;
             if (
                 popupRef.current &&
-                !popupRef.current.contains(e.target as Node)
+                !popupRef.current.contains(target) &&
+                (!triggerRef?.current || !triggerRef.current.contains(target))
             ) {
                 onClose();
             }
@@ -42,7 +46,7 @@ export default function Popup({
             document.removeEventListener("keydown", handleEsc);
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [isOpen, onClose]);
+    }, [isOpen, onClose, triggerRef]);
 
     return (
         <div
