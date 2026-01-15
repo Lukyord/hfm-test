@@ -33,9 +33,7 @@ export default function CountryCodeSelect({
     const filtered = countryCodes.filter(
         (item) =>
             item.code.toLowerCase().includes(search.toLowerCase()) ||
-            item.countries.some((c) =>
-                c.name.common.toLowerCase().includes(search.toLowerCase())
-            )
+            item.countries.some((c) => c.name.common.toLowerCase().includes(search.toLowerCase()))
     );
 
     const handleSelect = (code: string) => {
@@ -44,13 +42,7 @@ export default function CountryCodeSelect({
     };
 
     return (
-        <Popup
-            isOpen={isOpen}
-            onClose={onClose}
-            triggerRef={triggerRef}
-            positionPc="start"
-            positionMb="start"
-        >
+        <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} positionPc="start" positionMb="start">
             <div className="country-select">
                 <input
                     type="text"
@@ -59,32 +51,19 @@ export default function CountryCodeSelect({
                     onChange={(e) => setSearch(e.target.value)}
                     className="popup-search"
                 />
-                <div className="country-list">
+                <div className="country-list" data-lenis-prevent>
                     {filtered.length === 0 ? (
                         <div className="country-empty">
-                            <p className="size-extra-small">
-                                No country codes found
-                            </p>
+                            <p className="size-extra-small">No country codes found</p>
                         </div>
                     ) : (
                         filtered.map((item) => (
-                            <div
-                                key={item.code}
-                                className="country-item"
-                                onClick={() => handleSelect(item.code)}
-                            >
-                                <img
-                                    src={item.countries[0].flags.png}
-                                    alt={item.countries[0].name.common}
-                                />
+                            <div key={item.code} className="country-item" onClick={() => handleSelect(item.code)}>
+                                <img src={item.countries[0].flags.png} alt={item.countries[0].name.common} />
                                 <span className="country-name">
-                                    {item.countries
-                                        .map((c) => c.name.common)
-                                        .join(", ")}
+                                    {item.countries.map((c) => c.name.common).join(", ")}
                                 </span>
-                                <span className="country-code">
-                                    {item.code}
-                                </span>
+                                <span className="country-code">{item.code}</span>
                             </div>
                         ))
                     )}

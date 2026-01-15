@@ -10,13 +10,7 @@ type CountrySelectProps = {
     triggerRef?: RefObject<HTMLElement | null>;
 };
 
-export default function CountrySelect({
-    isOpen,
-    onClose,
-    onSelect,
-    countries,
-    triggerRef,
-}: CountrySelectProps) {
+export default function CountrySelect({ isOpen, onClose, onSelect, countries, triggerRef }: CountrySelectProps) {
     const [search, setSearch] = useState("");
 
     useEffect(() => {
@@ -25,9 +19,7 @@ export default function CountrySelect({
         }
     }, [isOpen]);
 
-    const filtered = countries.filter((c) =>
-        c.name.common.toLowerCase().includes(search.toLowerCase())
-    );
+    const filtered = countries.filter((c) => c.name.common.toLowerCase().includes(search.toLowerCase()));
 
     const handleSelect = (country: Country) => {
         setSearch("");
@@ -44,12 +36,10 @@ export default function CountrySelect({
                     onChange={(e) => setSearch(e.target.value)}
                     className="popup-search"
                 />
-                <div className="country-list">
+                <div className="country-list" data-lenis-prevent>
                     {filtered.length === 0 ? (
                         <div className="country-empty">
-                            <p className="size-extra-small">
-                                No countries found
-                            </p>
+                            <p className="size-extra-small">No countries found</p>
                         </div>
                     ) : (
                         filtered.map((country) => (
@@ -58,13 +48,8 @@ export default function CountrySelect({
                                 className="country-item"
                                 onClick={() => handleSelect(country)}
                             >
-                                <img
-                                    src={country.flags.svg}
-                                    alt={country.name.common}
-                                />
-                                <span className="country-name">
-                                    {country.name.common}
-                                </span>
+                                <img src={country.flags.svg} alt={country.name.common} />
+                                <span className="country-name">{country.name.common}</span>
                                 <span className="country-code">
                                     {country.idd.root}
                                     {country.idd.suffixes[0]}

@@ -2,11 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { ReactLenis } from "lenis/react";
 
 import reportWebVitals from "./reportWebVitals";
 import Homepage from "./pages/homepage/Homepage";
 import Theme from "./components/Layout/Theme";
 
+import "lenis/dist/lenis.css";
 import "./assets/css/global.css";
 import "./assets/css/global-rwd.css";
 import "./assets/css/iconfont.css";
@@ -21,9 +23,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
     <React.StrictMode>
-        <Toaster />
-        <Theme />
-        <RouterProvider router={router} />
+        <ReactLenis root>
+            <Toaster />
+            <Theme />
+            <RouterProvider router={router} />
+        </ReactLenis>
     </React.StrictMode>
 );
 

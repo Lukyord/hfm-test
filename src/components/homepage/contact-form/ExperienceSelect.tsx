@@ -11,22 +11,13 @@ type ExperienceSelectProps = {
     triggerRef?: RefObject<HTMLElement | null>;
 };
 
-export default function ExperienceSelect({
-    isOpen,
-    onClose,
-    onSelect,
-    triggerRef,
-}: ExperienceSelectProps) {
+export default function ExperienceSelect({ isOpen, onClose, onSelect, triggerRef }: ExperienceSelectProps) {
     return (
         <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}>
             <div className="country-select">
-                <div className="country-list">
+                <div className="country-list" data-lenis-prevent>
                     {experienceOptions.map((option) => (
-                        <div
-                            key={option.value}
-                            className="country-item"
-                            onClick={() => onSelect(option.value)}
-                        >
+                        <div key={option.value} className="country-item" onClick={() => onSelect(option.value)}>
                             <span>{option.label}</span>
                         </div>
                     ))}
