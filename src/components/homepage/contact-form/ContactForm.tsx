@@ -67,10 +67,17 @@ export default function ContactForm() {
         }
     }
 
+    const formTitleId = "contact-form-title";
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="contact-form">
+        <form 
+            onSubmit={handleSubmit(onSubmit)} 
+            className="contact-form"
+            aria-labelledby={formTitleId}
+            noValidate
+        >
             <div className="form-ttl">
-                <h3 className="size-h3 weight-bold c-black">
+                <h3 id={formTitleId} className="size-h3 weight-bold c-black">
                     Lorem ipsum dolor sit amet
                 </h3>
             </div>
@@ -107,14 +114,21 @@ export default function ContactForm() {
 
                 {/* COUNTRY */}
                 <div className="field">
+                    <label htmlFor="country-select" className="visually-hidden">
+                        Country
+                    </label>
                     <button
                         type="button"
+                        id="country-select"
                         onClick={() => setIsCountryPopupOpen((prev) => !prev)}
                         className={`popup-trigger-button input ${
                             selectedCountry ? "active" : ""
                         }`}
                         disabled={isLoadingCountries}
                         ref={countrySelectTriggerRef}
+                        aria-expanded={isCountryPopupOpen}
+                        aria-haspopup="listbox"
+                        aria-label={selectedCountry ? `Selected country: ${selectedCountry.name.common}` : "Select country"}
                     >
                         {isLoadingCountries ? (
                             <Spinner />
@@ -155,8 +169,12 @@ export default function ContactForm() {
                 <div className="field">
                     {/* COUNTRY CODE */}
                     <div className="subfield country-code">
+                        <label htmlFor="country-code-select" className="visually-hidden">
+                            Country Code
+                        </label>
                         <button
                             type="button"
+                            id="country-code-select"
                             onClick={() =>
                                 setIsCountryCodePopupOpen((prev) => !prev)
                             }
@@ -165,6 +183,9 @@ export default function ContactForm() {
                             }`}
                             disabled={isLoadingCountries}
                             ref={countryCodeSelectTriggerRef}
+                            aria-expanded={isCountryCodePopupOpen}
+                            aria-haspopup="listbox"
+                            aria-label={selectedCountryCode ? `Selected country code: ${selectedCountryCode}` : "Select country code"}
                         >
                             {isLoadingCountries ? (
                                 <Spinner />
@@ -233,6 +254,7 @@ export default function ContactForm() {
                 >
                     <button
                         type="button"
+                        id="experience"
                         onClick={() =>
                             setIsExperiencePopupOpen((prev) => !prev)
                         }
@@ -240,6 +262,9 @@ export default function ContactForm() {
                             selectedExperience ? "active" : ""
                         }`}
                         ref={experienceSelectTriggerRef}
+                        aria-expanded={isExperiencePopupOpen}
+                        aria-haspopup="listbox"
+                        aria-label={selectedExperience ? `Selected experience: ${experienceOptions.find(opt => opt.value === selectedExperience)?.label}` : "Select experience"}
                     >
                         {selectedExperience
                             ? experienceOptions.find(
@@ -301,8 +326,14 @@ export default function ContactForm() {
                 </div>
             </div>
 
-            <button type="submit" disabled={isSubmitting} className="button">
-                JOIN NOW
+            <button 
+                type="submit" 
+                disabled={isSubmitting} 
+                className="button"
+                aria-busy={isSubmitting}
+                aria-label={isSubmitting ? "Submitting form, please wait" : "Submit contact form"}
+            >
+                {isSubmitting ? "SUBMITTING..." : "JOIN NOW"}
             </button>
         </form>
     );

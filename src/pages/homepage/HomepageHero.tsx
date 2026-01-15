@@ -5,10 +5,10 @@ import ContactForm from "@/components/homepage/contact-form/ContactForm";
 
 export default function HomepageHero() {
     return (
-        <section data-section="homepage-hero" className="header-padding">
+        <section data-section="homepage-hero" className="header-padding" aria-label="Hero section">
             <div className="sc-inner">
-                <div className="cover">
-                    <RenderMedia src={heroImage} srcMobile={heroImage} alt="Hero" />
+                <div className="cover" aria-hidden="true">
+                    <RenderMedia src={heroImage} srcMobile={heroImage} alt="" />
                 </div>
                 <div className="container">
                     <div className="sc-ttl fadeInUp" style={{ animationDelay: "300ms" }}>

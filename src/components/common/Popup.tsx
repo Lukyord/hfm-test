@@ -48,12 +48,56 @@ export default function Popup({
         };
     }, [isOpen, onClose, triggerRef]);
 
+    useEffect(() => {
+        if (!isOpen || !popupRef.current) return;
+
+        const popupElement = popupRef.current;
+        const focusableElements = popupElement.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0] as HTMLElement;
+        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+        const handleTabKey = (e: KeyboardEvent) => {
+            if (e.key !== "Tab") return;
+
+            if (e.shiftKey) {
+                if (document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement?.focus();
+                }
+            } else {
+                if (document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement?.focus();
+                }
+            }
+        };
+
+        firstElement?.focus();
+        popupElement.addEventListener("keydown", handleTabKey);
+
+        return () => {
+            popupElement.removeEventListener("keydown", handleTabKey);
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen && triggerRef?.current) {
+            triggerRef.current.focus();
+        }
+    }, [isOpen, triggerRef]);
+
     return (
         <div
             className={`popup ${isOpen ? "active" : ""}`}
             data-position-pc={positionPc}
             data-position-mb={positionMb}
             ref={popupRef}
+            role="dialog"
+            aria-modal="true"
+            aria-hidden={!isOpen}
+            {...(isOpen ? {} : { tabIndex: -1 })}
         >
             <div className="popup-content">{children}</div>
         </div>

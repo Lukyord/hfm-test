@@ -215,7 +215,6 @@ button,
 input,
 textarea,
 select {
-    outline: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -474,6 +473,13 @@ img {
 }
 
 /* TRANSITION ====================*/
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
 img,
 a,
 button,

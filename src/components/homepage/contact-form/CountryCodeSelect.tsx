@@ -44,27 +44,39 @@ export default function CountryCodeSelect({
     return (
         <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef} positionPc="start" positionMb="start">
             <div className="country-select">
+                <label htmlFor="country-code-search" className="visually-hidden">
+                    Search country codes
+                </label>
                 <input
+                    id="country-code-search"
                     type="text"
                     placeholder="Search codes or countries..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="popup-search"
+                    aria-label="Search country codes"
                 />
-                <div className="country-list" data-lenis-prevent>
+                <div className="country-list" data-lenis-prevent role="listbox" aria-label="Country code options">
                     {filtered.length === 0 ? (
-                        <div className="country-empty">
+                        <div className="country-empty" role="status" aria-live="polite">
                             <p className="size-extra-small">No country codes found</p>
                         </div>
                     ) : (
                         filtered.map((item) => (
-                            <div key={item.code} className="country-item" onClick={() => handleSelect(item.code)}>
-                                <img src={item.countries[0].flags.png} alt={item.countries[0].name.common} />
+                            <button
+                                key={item.code}
+                                type="button"
+                                className="country-item"
+                                onClick={() => handleSelect(item.code)}
+                                role="option"
+                                aria-selected={false}
+                            >
+                                <img src={item.countries[0].flags.png} alt="" aria-hidden="true" />
                                 <span className="country-name">
                                     {item.countries.map((c) => c.name.common).join(", ")}
                                 </span>
                                 <span className="country-code">{item.code}</span>
-                            </div>
+                            </button>
                         ))
                     )}
                 </div>

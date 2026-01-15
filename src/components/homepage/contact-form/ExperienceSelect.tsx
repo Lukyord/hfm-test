@@ -15,11 +15,18 @@ export default function ExperienceSelect({ isOpen, onClose, onSelect, triggerRef
     return (
         <Popup isOpen={isOpen} onClose={onClose} triggerRef={triggerRef}>
             <div className="country-select">
-                <div className="country-list" data-lenis-prevent>
+                <div className="country-list" data-lenis-prevent role="listbox" aria-label="Experience options">
                     {experienceOptions.map((option) => (
-                        <div key={option.value} className="country-item" onClick={() => onSelect(option.value)}>
+                        <button
+                            key={option.value}
+                            type="button"
+                            className="country-item"
+                            onClick={() => onSelect(option.value)}
+                            role="option"
+                            aria-selected={false}
+                        >
                             <span>{option.label}</span>
-                        </div>
+                        </button>
                     ))}
                 </div>
             </div>

@@ -49,7 +49,26 @@ export default function FormField({
             input.removeEventListener("blur", checkValue);
             input.removeEventListener("input", checkValue);
         };
-    }, [htmlFor]);
+    }, [htmlFor, error]);
+
+    useEffect(() => {
+        const field = fieldRef.current;
+        if (!field) return;
+
+        const input = field.querySelector(`#${htmlFor}`) as
+            | HTMLInputElement
+            | HTMLTextAreaElement
+            | HTMLSelectElement
+            | null;
+        if (!input) return;
+
+        const errorId = error ? `${htmlFor}-error` : undefined;
+        input.setAttribute("aria-invalid", error ? "true" : "false");
+        input.setAttribute("aria-describedby", errorId || "");
+    }, [htmlFor, error]);
+
+    const inputId = htmlFor;
+    const errorId = error ? `${htmlFor}-error` : undefined;
 
     return (
         <div
@@ -58,17 +77,14 @@ export default function FormField({
             `}
         >
             {!noLabel && (
-                <label
-                    htmlFor={htmlFor}
-                    className={`label anim ${isFilled ? "fixed" : ""}`}
-                >
+                <label htmlFor={inputId} className={`label anim ${isFilled ? "fixed" : ""}`}>
                     <span className="field-label">
                         <span>{label}</span>
                     </span>
                 </label>
             )}
             {children}
-            {error && <FieldError error={error} />}
+            {error && <FieldError error={error} id={errorId} />}
         </div>
     );
 }
