@@ -1,4 +1,5 @@
 import Accordion from "@/components/common/Accordion";
+import ScrollAnimation from "@/components/common/ScrollAnimation";
 
 export default function HomepageFaq() {
     const faq = [
@@ -24,9 +25,9 @@ export default function HomepageFaq() {
         <section data-section="faq">
             <div className="sc-inner pc-t-75 pc-b-150 mb-t-75 mb-b-200">
                 <div className="container">
-                    <div className="sc-ttl">
+                    <ScrollAnimation animateIn="fadeInUp" className="sc-ttl">
                         <h2 className="size-h2">FAQs</h2>
-                    </div>
+                    </ScrollAnimation>
 
                     {faq.map((item) => (
                         <Accordion key={item.title} title={item.title}>

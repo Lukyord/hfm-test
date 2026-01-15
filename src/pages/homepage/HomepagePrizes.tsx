@@ -7,6 +7,7 @@ import medal3 from "@/assets/media/medal-3.svg";
 
 import "swiper/css";
 import RenderMedia from "@/components/common/Media";
+import ScrollAnimation from "@/components/common/ScrollAnimation";
 
 export default function HomepagePrizes() {
     const price = [
@@ -43,9 +44,9 @@ export default function HomepagePrizes() {
         <section data-section="prize" className="template-section">
             <div className="sc-inner pc-t-150 pc-b-150 mb-t-125 mb-b-125">
                 <div className="container">
-                    <div className="sc-ttl">
+                    <ScrollAnimation animateIn="fadeInUp" className="sc-ttl">
                         <h2 className="size-h2">PRIZES</h2>
-                    </div>
+                    </ScrollAnimation>
 
                     <div className="card-container" data-card-layout="slider">
                         <Swiper
@@ -60,42 +61,38 @@ export default function HomepagePrizes() {
                         >
                             {price.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <div className="card" data-card="prize">
-                                        <div className="prize-media">
-                                            <RenderMedia
-                                                src={item.media.pc}
-                                                srcMobile={item.media.mobile}
-                                                alt={item.media.alt}
-                                            />
-                                        </div>
-                                        <div className="prize">
-                                            <p className="size-h2 font-body weight-bold">
-                                                {item.price}
-                                            </p>
-                                        </div>
+                                    <ScrollAnimation animateIn="fadeInFromRight" delay={index * 150}>
+                                        <div className="card" data-card="prize">
+                                            <div className="prize-media">
+                                                <RenderMedia
+                                                    src={item.media.pc}
+                                                    srcMobile={item.media.mobile}
+                                                    alt={item.media.alt}
+                                                />
+                                            </div>
+                                            <div className="prize">
+                                                <p className="size-h2 font-body weight-bold">{item.price}</p>
+                                            </div>
 
-                                        <div className="prize-subttl">
-                                            <h3 className="size-h4">
-                                                {item.subttl}
-                                            </h3>
+                                            <div className="prize-subttl">
+                                                <h3 className="size-h4">{item.subttl}</h3>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </ScrollAnimation>
                                 </SwiperSlide>
                             ))}
                         </Swiper>
                     </div>
 
-                    <div className="sc-cta">
+                    <ScrollAnimation animateIn="fadeInUp" className="sc-cta">
                         <Link to="#join-now" className="button">
                             Join Now
                         </Link>
 
                         <div className="cta-subttl">
-                            <p className="size-small c-gray">
-                                Terms and Conditions apply
-                            </p>
+                            <p className="size-small c-gray">Terms and Conditions apply</p>
                         </div>
-                    </div>
+                    </ScrollAnimation>
                 </div>
             </div>
         </section>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
@@ -20,14 +20,44 @@ const router = createBrowserRouter([
     },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
-root.render(
-    <React.StrictMode>
+const App = () => {
+    useEffect(() => {
+        if ("scrollRestoration" in window.history) {
+            window.history.scrollRestoration = "manual";
+        }
+        const scrollToTop = () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        };
+
+        const handleLoad = () => {
+            requestAnimationFrame(() => {
+                scrollToTop();
+            });
+        };
+
+        if (document.readyState === "complete") {
+            setTimeout(handleLoad, 0);
+        } else {
+            window.addEventListener("load", handleLoad);
+            return () => window.removeEventListener("load", handleLoad);
+        }
+    }, []);
+
+    return (
         <ReactLenis root>
             <Toaster />
             <Theme />
             <RouterProvider router={router} />
         </ReactLenis>
+    );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root")!);
+root.render(
+    <React.StrictMode>
+        <App />
     </React.StrictMode>
 );
 

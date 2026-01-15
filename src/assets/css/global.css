@@ -490,6 +490,82 @@ html.resizing * {
     transition: none !important;
 }
 
+.animated {
+    animation-duration: var(--duration) !important;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    opacity: 0;
+    animation: fadeIn var(--duration) var(--timing-function);
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.fadeInUp {
+    opacity: 0;
+    transform: translateY(5rem);
+    animation-name: fadeInUp;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-duration: var(--duration-x4) !important;
+}
+
+@keyframes fadeInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(5rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.fadeInFromRight {
+    opacity: 0;
+    transform: translateX(5rem);
+    animation-name: fadeInFromRight;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-duration: var(--duration-x4) !important;
+}
+
+@keyframes fadeInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-10rem);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.fadeInFromLeft {
+    opacity: 0;
+    transform: translateX(-10rem);
+    animation-name: fadeInFromLeft;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-duration: var(--duration-x3) !important;
+}
+
 /* MAIN ================================================ */
 #layout {
     display: grid;
@@ -646,14 +722,7 @@ section.header-padding {
     height: 100%;
     overflow: hidden;
 }
-*:is(
-        .object,
-        .object-fit,
-        .object-auto,
-        .object-contain,
-        .object-fill-height,
-        .object-fill-width
-    ) {
+*:is(.object, .object-fit, .object-auto, .object-contain, .object-fill-height, .object-fill-width) {
     text-decoration: none !important;
     box-shadow: none !important;
     background-image: none !important;
@@ -706,10 +775,7 @@ section.header-padding {
 .card-container[data-card-layout="grid"] {
     display: grid;
     grid-gap: var(--gap-y) var(--gap-x);
-    grid-template-columns: repeat(
-        var(--column),
-        calc((100% - (var(--gap-x) * (var(--column) - 1))) / var(--column))
-    );
+    grid-template-columns: repeat(var(--column), calc((100% - (var(--gap-x) * (var(--column) - 1))) / var(--column)));
     grid-auto-flow: dense;
 }
 
@@ -993,27 +1059,16 @@ html.no-touchevents .header-customer .customer-register:hover {
     transition: var(--duration) var(--timing-function);
 }
 .hamburger .bars > .bar:nth-child(1) {
-    top: calc(
-        (var(--hamburger-size) / 4) - (var(--hamburger-stroke-width) / 2)
-    );
+    top: calc((var(--hamburger-size) / 4) - (var(--hamburger-stroke-width) / 2));
 }
 .hamburger .bars > .bar:is(:nth-child(2), :nth-child(3)) {
-    top: calc(
-        (var(--hamburger-size) / 2) - (var(--hamburger-stroke-width) / 2)
-    );
+    top: calc((var(--hamburger-size) / 2) - (var(--hamburger-stroke-width) / 2));
 }
 .hamburger .bars > .bar:nth-child(4) {
-    top: calc(
-        (var(--hamburger-size) / 4) * 3 - (var(--hamburger-stroke-width) / 2)
-    );
+    top: calc((var(--hamburger-size) / 4) * 3 - (var(--hamburger-stroke-width) / 2));
 }
-html.header-menu-enabled
-    .hamburger
-    .bars
-    > .bar:is(:nth-child(1), :nth-child(4)) {
-    top: calc(
-        (var(--hamburger-size) / 2) - (var(--hamburger-stroke-width) / 2)
-    );
+html.header-menu-enabled .hamburger .bars > .bar:is(:nth-child(1), :nth-child(4)) {
+    top: calc((var(--hamburger-size) / 2) - (var(--hamburger-stroke-width) / 2));
     left: 50%;
     width: 0%;
 }
@@ -1278,8 +1333,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .accordion .entry-panel-inner {
-    padding: var(--padding-y) var(--padding-left) var(--padding-y)
-        var(--padding-right);
+    padding: var(--padding-y) var(--padding-left) var(--padding-y) var(--padding-right);
 }
 
 .accordion > .entry-title {
@@ -1293,8 +1347,7 @@ input[type="checkbox"]:checked::before {
     display: flex;
     align-items: center;
     gap: 0;
-    padding: var(--padding-y) var(--padding-left) var(--padding-y)
-        var(--padding-right);
+    padding: var(--padding-y) var(--padding-left) var(--padding-y) var(--padding-right);
     transition: var(--duration) var(--timing-function);
     cursor: pointer;
 }

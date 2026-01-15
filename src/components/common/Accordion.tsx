@@ -1,5 +1,6 @@
 import { ReactNode, useState, useRef, useEffect } from "react";
 import { onWindowResize } from "../../utils/utils";
+import ScrollAnimation from "./ScrollAnimation";
 
 type AccordionProps = {
     title: string;
@@ -25,13 +26,13 @@ export default function Accordion({ title, children }: AccordionProps) {
     }, [children]);
 
     return (
-        <div className={`accordion ${isOpen ? "active" : ""}`}>
+        <ScrollAnimation animateIn="fadeIn" className={`accordion ${isOpen ? "active" : ""}`}>
             <button className="entry-title" onClick={() => setIsOpen(!isOpen)} type="button">
                 <h3>{title}</h3>
             </button>
             <div className="entry-panel" ref={entryPanelRef}>
                 <div className="entry-panel-inner">{children}</div>
             </div>
-        </div>
+        </ScrollAnimation>
     );
 }

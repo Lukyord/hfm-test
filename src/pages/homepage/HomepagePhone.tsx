@@ -1,10 +1,10 @@
 import illus1 from "@/assets/media/illus-1.svg";
 import illus2 from "@/assets/media/illus-2.svg";
 import illus3 from "@/assets/media/illus-3.svg";
-
 import phoneImage from "@/assets/media/mock-phone.webp";
 
 import RenderMedia from "@/components/common/Media";
+import ScrollAnimation from "@/components/common/ScrollAnimation";
 
 export default function HomepagePhone() {
     const phoneContent = [
@@ -46,13 +46,13 @@ export default function HomepagePhone() {
         <section data-section="phone">
             <div className="sc-inner pc-t-150 pc-b-0 mb-t-150 mb-b-0">
                 <div className="container">
-                    <div className="sc-ttl">
+                    <ScrollAnimation animateIn="fadeInUp" className="sc-ttl">
                         <h2 className="size-h2">QUISQUE RUTRUM</h2>
-                    </div>
+                    </ScrollAnimation>
 
                     <div className="phone-wrapper">
                         {phoneContent.map((item, index) => (
-                            <div key={index} className="phone-item">
+                            <ScrollAnimation key={index} animateIn="fadeIn" className="phone-item" delay={300}>
                                 <div className="media">
                                     <RenderMedia
                                         src={item.media.pc}
@@ -61,20 +61,14 @@ export default function HomepagePhone() {
                                     />
                                 </div>
                                 <div className="content">
-                                    <p className="c-gray-dark">
-                                        {item.content}
-                                    </p>
+                                    <p className="c-gray-dark">{item.content}</p>
                                 </div>
-                            </div>
+                            </ScrollAnimation>
                         ))}
 
-                        <div className="media">
-                            <RenderMedia
-                                src={phoneImage}
-                                srcMobile={phoneImage}
-                                alt="Phone"
-                            />
-                        </div>
+                        <ScrollAnimation animateIn="fadeInUp" className="media">
+                            <RenderMedia src={phoneImage} srcMobile={phoneImage} alt="Phone" />
+                        </ScrollAnimation>
                     </div>
                 </div>
             </div>
