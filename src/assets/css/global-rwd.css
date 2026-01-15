@@ -220,6 +220,14 @@
         margin-top: var(--spacing-md);
     }
 
+    /* FOOTER ================================================ */
+    .footer-nav {
+        flex-direction: column;
+        display: flex;
+        gap: var(--spacing-md);
+        padding: var(--spacing-2lg) var(--spacing-container);
+    }
+
     /* ACCORDION ======================================== */
     .accordion {
         --padding-y: var(--spacing-xs);

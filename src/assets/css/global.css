@@ -196,7 +196,7 @@ body {
     position: relative;
     min-height: 100svh;
     overflow-x: hidden;
-    background: var(--color-light-gray);
+    background: var(--color-gray-dark);
     color: var(--color-black);
     -webkit-animation-name: pageAnimation;
     animation-name: pageAnimation;
@@ -466,6 +466,12 @@ img {
 .ic::before {
     display: block;
 }
+.ic-youtube:before,
+.ic-envelope:before {
+    transform: scale(1.2);
+    display: block;
+    margin: 0 0.1em;
+}
 
 /* TRANSITION ====================*/
 img,
@@ -489,6 +495,7 @@ html.resizing * {
     display: grid;
     min-height: 100svh;
     grid-template-rows: 1fr auto;
+    background-color: var(--color-light-gray);
 }
 
 section {
@@ -612,6 +619,7 @@ section.header-padding {
 
 .sc-ttl {
     text-align: center;
+    text-wrap: balance;
 }
 
 .visually-hidden {
@@ -1017,6 +1025,61 @@ html.header-menu-enabled .hamburger .bars > .bar:nth-child(3) {
 }
 
 /* FOOTER ================================================ */
+#footer {
+    background-color: var(--color-gray-dark);
+    color: var(--color-mid-gray);
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+.footer-nav {
+    display: flex;
+    gap: var(--spacing-xl);
+    padding: var(--spacing-2lg) var(--spacing-container) var(--spacing-5xl);
+
+    .content-ttl {
+        color: var(--color-white);
+        font-weight: 700;
+        margin-bottom: var(--spacing-2xs);
+    }
+
+    .footer-links {
+        flex-shrink: 0;
+    }
+
+    .footer-disclaimer {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .footer-cta {
+        margin-top: var(--spacing-md);
+
+        .app-cta {
+            display: flex;
+            gap: var(--spacing-4xs);
+
+            .app-cta-item {
+                height: 3.9rem;
+                width: auto;
+                aspect-ratio: 2.9743589744;
+
+                *:is(img, video) {
+                    object-fit: contain;
+                }
+            }
+        }
+    }
+}
+
+.social {
+    display: flex;
+    gap: var(--spacing-5xs) var(--spacing-3xs);
+    align-items: center;
+}
 
 /* FORM ================================================ */
 *:is(input, textarea, select, .input) {
