@@ -220,6 +220,11 @@
         margin-top: var(--spacing-md);
     }
 
+    .header-cta .language-selector .popup {
+        top: auto;
+        bottom: calc(100% + var(--spacing-4xs));
+    }
+
     /* FOOTER ================================================ */
     .footer-nav {
         flex-direction: column;

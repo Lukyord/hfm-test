@@ -82,6 +82,7 @@
     }
 
     .country-item {
+        width: 100%;
         display: flex;
         align-items: center;
         gap: var(--spacing-3xs);
@@ -144,8 +145,8 @@
 }
 
 [data-section="phone"] .phone-wrapper {
-    aspect-ratio: 1;
-    width: max(43.4722222222vw, 62.6rem);
+    aspect-ratio: 0.9680511182;
+    width: max(42.08333333333vw, 60.6rem);
     margin: 0 auto;
     position: relative;
 

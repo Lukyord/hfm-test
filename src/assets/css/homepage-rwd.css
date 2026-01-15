@@ -3,10 +3,37 @@
 }
 
 /* MEDIA QUERIES:MAX ==================== */
+@media (max-width: 1100px) {
+    /* PAGE: HOMEPAGE */
+    /* PHONE */
+    [data-section="phone"] .phone-item {
+        gap: var(--spacing-2xs);
+        width: 13rem;
+        align-items: center;
+        text-align: center;
+
+        &:nth-child(1) {
+            transform: translateX(-80%);
+        }
+
+        &:nth-child(2) {
+            transform: translateX(80%);
+        }
+
+        &:nth-child(3) {
+            transform: translateX(-80%);
+        }
+
+        &:nth-child(4) {
+            transform: translateX(80%);
+        }
+    }
+}
 @media (max-width: 991px) {
     /* PAGE: HOMEPAGE */
     /* HOMEPAGE HERO */
     [data-section="homepage-hero"] .container {
+        justify-content: center;
         gap: var(--spacing-lg);
     }
 
@@ -53,8 +80,6 @@
     }
 
     [data-section="phone"] .phone-item {
-        gap: var(--spacing-2xs);
-        width: 13rem;
         position: static;
         place-self: center;
 
