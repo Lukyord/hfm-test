@@ -37,12 +37,12 @@ export default function Header() {
                 </div>
 
                 <div className="header-content-row">
-                    <div className="header-logo">
+                    <Link to="/" className="header-logo">
                         <RenderMedia src={logo} alt="logo" className="logo" />
-                    </div>
+                    </Link>
 
-                    <nav className="header-menu">
-                        <div className="panel">
+                    <nav className="header-menu" aria-label="Main navigation">
+                        <div className="panel" aria-hidden={!isMenuOpen}>
                             <div className="panel-scroll" data-lenis-prevent>
                                 <div className="panel-body">
                                     <ul className="menu">

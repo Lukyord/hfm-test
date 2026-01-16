@@ -31,6 +31,13 @@ export default function LanguageSelector() {
         setIsPopupOpen((prev) => !prev);
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            handleToggle();
+        }
+    };
+
     return (
         <div className="language-selector">
             <button
@@ -38,7 +45,10 @@ export default function LanguageSelector() {
                 type="button"
                 className="language-selector-button"
                 onClick={handleToggle}
-                aria-label="Select language"
+                onKeyDown={handleKeyDown}
+                aria-label={`Select language. Current: ${currentLanguage.name}`}
+                aria-expanded={isPopupOpen}
+                aria-haspopup="listbox"
             >
                 <div className="flag">
                     <RenderMedia

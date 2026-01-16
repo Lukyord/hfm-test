@@ -145,12 +145,14 @@
         overflow: hidden;
         z-index: 95;
         pointer-events: none;
+        visibility: hidden;
         transition: transform var(--duration-x3) cubic-bezier(0.83, 0, 0.17, 1);
         transform: translateX(100%);
     }
 
     html.header-menu-enabled .panel {
         pointer-events: auto;
+        visibility: visible;
         transform: translateX(0);
     }
 

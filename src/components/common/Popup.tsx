@@ -56,7 +56,9 @@ export default function Popup({
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
         const firstElement = focusableElements[0] as HTMLElement;
-        const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+        const lastElement = focusableElements[
+            focusableElements.length - 1
+        ] as HTMLElement;
 
         const handleTabKey = (e: KeyboardEvent) => {
             if (e.key !== "Tab") return;
@@ -87,6 +89,42 @@ export default function Popup({
             triggerRef.current.focus();
         }
     }, [isOpen, triggerRef]);
+
+    useEffect(() => {
+        if (!popupRef.current) return;
+
+        const popupElement = popupRef.current;
+        const focusableElements = popupElement.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+
+        if (isOpen) {
+            focusableElements.forEach((el) => {
+                const originalTabIndex = el.getAttribute(
+                    "data-original-tabindex"
+                );
+                if (originalTabIndex !== null) {
+                    if (originalTabIndex === "") {
+                        el.removeAttribute("tabindex");
+                    } else {
+                        el.setAttribute("tabindex", originalTabIndex);
+                    }
+                    el.removeAttribute("data-original-tabindex");
+                }
+            });
+        } else {
+            focusableElements.forEach((el) => {
+                const currentTabIndex = el.getAttribute("tabindex");
+                if (currentTabIndex !== "-1") {
+                    el.setAttribute(
+                        "data-original-tabindex",
+                        currentTabIndex || ""
+                    );
+                    el.setAttribute("tabindex", "-1");
+                }
+            });
+        }
+    }, [isOpen]);
 
     return (
         <div
